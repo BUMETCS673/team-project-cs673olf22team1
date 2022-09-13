@@ -11,3 +11,6 @@ Yuan Wang
 
 Hi everyone, my name is Yuan Wang. I graduated from University of California, Irvine with an Informatics degree. I don't have any working experience so far, but I had done internship at E&Y as a data analyst. I like playing badminton, surfing, and skiing during my free time.
 
+Haiyang Lu 
+
+Hi! My name is Haiyang Lu. I graduated from Miami University with a Bachelor of Science in Computer Science. I'm looking for an internship rigth now. I enjoy playing basketball and work out.
