@@ -18,19 +18,21 @@ public class Schedule {
         this.takeTimes = new ArrayList<>();
     }
 
-    public void addTakeTime(LocalDateTime Time)
-    {
+    public void addTakeTime(LocalDateTime Time) {
         takeTimes.add(Time);
     }
 
-    private void deleteTakeTime(LocalDateTime Time)
-    {
+    public void deleteTakeTime(LocalDateTime Time) {
         takeTimes.remove(Time);
     }
 
-    public void updateTakeTime(LocalDateTime oldTime, LocalDateTime newTime)
-    {
+    public void updateTakeTime(LocalDateTime oldTime, LocalDateTime newTime) {
         this.deleteTakeTime(oldTime);
         this.addTakeTime(newTime);
+    }
+
+    public List<LocalDateTime> getTakeTimes()
+    {
+        return this.takeTimes;
     }
 }
