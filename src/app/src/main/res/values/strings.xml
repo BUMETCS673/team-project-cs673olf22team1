@@ -1,3 +1,22 @@
 <resources>
+    <!-- main -->
     <string name="app_name">MedTracker</string>
+    <string name="add_med">Add Medication</string>
+    <!-- Bottom Navagation -->
+    <string name="home">Home</string>
+    <string name="account">Account Info</string>
+
+    <!-- add_med -->
+    <string name="add_title">Add Medication</string>
+    <string name="image_text">Image</string>
+    <string name="name_text">Name</string>
+    <string name="name_input">Enter Medication Name</string>
+    <string name="dosage_text">Dosage</string>
+    <string name="dosage_text2">pills/vials every</string>
+    <string name="notification_text">Notification</string>
+    <string name="notification_text2">before medication</string>
+    <string name="remarks_text">Remarks</string>
+    <string name="create_med">Create Medication</string>
+
+
 </resources>
