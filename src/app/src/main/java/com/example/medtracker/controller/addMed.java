@@ -1,10 +1,8 @@
 package com.example.medtracker.controller;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,21 +20,11 @@ public class addMed extends AppCompatActivity {
 
         //press create medication button
         createMed = (Button) findViewById(R.id.createMed);
-        createMed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createMed();
-            }
-        });
+        createMed.setOnClickListener(view -> createMed());
 
         //return home page
         returnMain = (ImageButton) findViewById(R.id.backButton);
-        returnMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                returnParent();
-            }
-        });
+        returnMain.setOnClickListener(view -> returnParent());
     }
     public void createMed(){
         finish();

@@ -2,9 +2,6 @@
     <!-- main -->
     <string name="app_name">MedTracker</string>
     <string name="add_med">Add Medication</string>
-    <!-- Bottom Navagation -->
-    <string name="home">Home</string>
-    <string name="account">Account Info</string>
 
     <!-- add_med -->
     <string name="add_title">Add Medication</string>
@@ -18,5 +15,31 @@
     <string name="remarks_text">Remarks</string>
     <string name="create_med">Create Medication</string>
 
+    <!-- setting -->
+    <string name="info_toolbar">Setting</string>
+    <!-- caretaker -->
+    <string name="caretaker">Caretaker</string>
+    <string name="caretaker_info">No Current Caretaker</string>
+    <!-- personal info -->
+    <string name="personal_info_title">Personal Info</string>
+    <string name="name_title">Name</string>
+    <string name="age_title">Age</string>
+    <string name="gender_title">Gender</string>
+    <string name="name_enter">Your Name</string>
+    <string name="age_enter">Your Age</string>
+    <string name="gender_enter">Your Gender</string>
+    <!-- account info -->
+    <string name="account_title">Account Info</string>
+    <string name="username_title">UserName</string>
+    <string name="username_enter">Your Username</string>
+    <string name="password_title">Password</string>
+    <string name="password_enter">********</string>
+    <!-- history -->
+    <string name="history_title">History</string>
+    <string name="med_title">Medication History</string>
+    <!-- buttons -->
+    <string name="logout_button">Logout</string>
+    <string name="switch_acc_button">Switch Account</string>
+    <string name="change">Change</string>
 
 </resources>
