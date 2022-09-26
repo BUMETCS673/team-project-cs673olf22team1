@@ -14,7 +14,7 @@
     <string name="notification_text2">before medication</string>
     <string name="remarks_text">Remarks</string>
     <string name="create_med">Create Medication</string>
-
+    
     <!-- setting -->
     <string name="info_toolbar">Setting</string>
     <!-- caretaker -->
@@ -41,5 +41,12 @@
     <string name="logout_button">Logout</string>
     <string name="switch_acc_button">Switch Account</string>
     <string name="change">Change</string>
+
+    <!-- Patient UI -->
+    <string name="Name">Name</string>
+    <string name="Age">Age</string>
+    <string name="Medications">Medications</string>
+    <string name="Create">Create</string>
+
 
 </resources>
