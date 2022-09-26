@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
     tools:context=".controller.setting">
 
     <LinearLayout
@@ -23,7 +24,7 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:title="@string/info_toolbar"
-            app:titleMarginStart="170dp"
+            app:titleMarginStart="163dp"
             app:titleTextColor="#000000" />
 
         <View
@@ -34,11 +35,11 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="25dp" />
+            android:layout_height="27dp" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="595dp">
+            android:layout_height="625dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -48,13 +49,24 @@
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
+                    android:layout_height="30dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:gravity="center_vertical"
                     android:text="@string/caretaker"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="77dp">
+                    android:layout_width="310dp"
+                    android:layout_height="77dp"
+                    android:layout_gravity="center"
+                    android:elevation="40dp"
+                    app:cardCornerRadius="20dp">
 
                     <ImageView
                         android:id="@+id/imageView5"
@@ -65,11 +77,13 @@
 
                     <TextView
                         android:id="@+id/textView23"
-                        android:layout_width="316dp"
+                        android:layout_width="214dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="right"
                         android:background="@color/teal_200"
+                        android:gravity="center"
                         android:text="@string/caretaker_info"
+                        android:textAlignment="center"
                         android:textColor="#000000" />
                 </androidx.cardview.widget.CardView>
 
@@ -81,57 +95,68 @@
                     android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:gravity="center_vertical"
                     android:text="@string/personal_info_title"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="35dp"
+                        android:gravity="center"
                         android:text="@string/name_title"
-                        android:textColor="#000000" />
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView11"
-                        android:layout_width="wrap_content"
+                        android:layout_width="104dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="30dp"
+                        android:gravity="center_vertical"
                         android:text="@string/name_enter"
                         android:textColor="#000000" />
 
                     <Button
                         android:id="@+id/button"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_height="40dp"
                         android:backgroundTint="@color/purple_500"
                         android:text="@string/change" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView15"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="35dp"
+                        android:gravity="center"
                         android:text="@string/age_title"
-                        android:textColor="#000000" />
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView16"
-                        android:layout_width="wrap_content"
+                        android:layout_width="104dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="43dp"
+                        android:gravity="center_vertical"
                         android:text="@string/age_enter"
                         android:textColor="#000000" />
 
@@ -139,7 +164,6 @@
                         android:id="@+id/button2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:backgroundTint="@color/purple_500"
                         android:text="@string/change" />
 
@@ -147,7 +171,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -155,15 +179,19 @@
                         android:id="@+id/textView13"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="35dp"
+                        android:gravity="center"
                         android:text="@string/gender_title"
-                        android:textColor="#000000" />
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView12"
-                        android:layout_width="wrap_content"
+                        android:layout_width="104dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="22dp"
+                        android:gravity="center_vertical"
                         android:text="@string/gender_enter"
                         android:textColor="#000000" />
 
@@ -171,7 +199,6 @@
                         android:id="@+id/button1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:backgroundTint="@color/purple_500"
                         android:text="@string/change" />
                 </LinearLayout>
@@ -184,12 +211,16 @@
                     android:id="@+id/textView14"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:gravity="center_vertical"
                     android:text="@string/account_title"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -197,15 +228,19 @@
                         android:id="@+id/textView20"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="35dp"
+                        android:gravity="center"
                         android:text="@string/username_title"
-                        android:textColor="#000000" />
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView21"
-                        android:layout_width="wrap_content"
+                        android:layout_width="114dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="30dp"
+                        android:gravity="center_vertical"
                         android:text="@string/username_enter"
                         android:textColor="#000000" />
 
@@ -213,14 +248,13 @@
                         android:id="@+id/button4"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:backgroundTint="@color/purple_500"
                         android:text="@string/change" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -228,15 +262,19 @@
                         android:id="@+id/textView18"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="35dp"
+                        android:gravity="center"
                         android:text="@string/password_title"
-                        android:textColor="#000000" />
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView17"
-                        android:layout_width="wrap_content"
+                        android:layout_width="114dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="35dp"
+                        android:gravity="center_vertical"
                         android:text="@string/password_enter"
                         android:textColor="#000000" />
 
@@ -244,7 +282,6 @@
                         android:id="@+id/button3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:backgroundTint="@color/purple_500"
                         android:text="@string/change" />
                 </LinearLayout>
@@ -257,28 +294,30 @@
                     android:id="@+id/textView19"
                     android:layout_width="match_parent"
                     android:layout_height="39dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:gravity="center_vertical"
                     android:text="@string/history_title"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView22"
-                        android:layout_width="wrap_content"
+                        android:layout_width="377dp"
                         android:layout_height="33dp"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="35dp"
+                        android:backgroundTint="@color/purple_500"
+                        android:gravity="left|center_vertical"
                         android:text="@string/med_title"
                         android:textColor="#000000"
-                        android:backgroundTint="@color/purple_500" />
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="82dp"
-                        android:layout_height="match_parent"
-                        app:srcCompat="@drawable/right_arrow" />
                 </LinearLayout>
 
                 <Space

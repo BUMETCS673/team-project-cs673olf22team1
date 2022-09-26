@@ -40,7 +40,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="526dp"
+            android:layout_height="552dp"
             tools:ignore="SpeakableTextPresentCheck">
 
             <LinearLayout
@@ -66,17 +66,17 @@
                         android:layout_marginLeft="10dp"
                         android:src="@android:drawable/arrow_up_float" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/editTextTextPersonName2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="216dp"
+                        android:layout_height="46dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="80dp"
                         android:ems="10"
                         android:gravity="center"
-                        android:inputType="textPersonName"
-                        android:text="IBU Profin"
-                        android:textColor="#000000" />
+                        android:text="Medication Info"
+                        android:textColor="#000000"
+                        android:textSize="20sp" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
         </ScrollView>
