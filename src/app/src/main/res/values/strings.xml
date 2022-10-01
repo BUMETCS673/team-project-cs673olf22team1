@@ -46,7 +46,6 @@
     <string name="change">Change</string>
 
     <!-- Patient UI -->
-    <string name="Name">Name</string>
     <string name="Age">Age</string>
     <string name="Medications">Medications</string>
     <string name="Create">Create</string>
