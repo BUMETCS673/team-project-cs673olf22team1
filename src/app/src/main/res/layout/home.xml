@@ -27,6 +27,7 @@
             android:theme="?attr/actionBarTheme"
             app:title="@string/app_name"
             app:titleMarginStart="140dp"
+            app:titleMarginTop="18dp"
             app:titleTextColor="#000000" />
 
         <View

@@ -8,10 +8,10 @@
     <string name="image_text">Image</string>
     <string name="name_text">Name</string>
     <string name="name_input">Enter Medication Name</string>
-    <string name="dosage_text">Dosage</string>
-    <string name="dosage_input1">num</string>
-    <string name="dosage_input2">time</string>
-    <string name="dosage_text2">pills/vials every</string>
+    <string name="dosage_text1">Doses</string>
+    <string name="dosage_input">num</string>
+    <string name="dosage_text2">pills/bottles</string>
+    <string name="deadline_title">Eat Before</string>
     <string name="notification_text">Notification</string>
     <string name="notification_input">2 hour 0 min</string>
     <string name="notification_text2">before medication</string>

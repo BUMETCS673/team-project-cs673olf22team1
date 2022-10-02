@@ -25,6 +25,7 @@
             android:theme="?attr/actionBarTheme"
             app:title="@string/info_toolbar"
             app:titleMarginStart="163dp"
+            app:titleMarginTop="18dp"
             app:titleTextColor="#000000" />
 
         <View
@@ -119,7 +120,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView11"
+                        android:id="@+id/nameText"
                         android:layout_width="104dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30dp"
@@ -128,7 +129,7 @@
                         android:textColor="#000000" />
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/nameButton"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:backgroundTint="@color/purple_500"
@@ -152,7 +153,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView16"
+                        android:id="@+id/ageText"
                         android:layout_width="104dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="43dp"
@@ -161,7 +162,7 @@
                         android:textColor="#000000" />
 
                     <Button
-                        android:id="@+id/button2"
+                        android:id="@+id/ageButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/purple_500"
@@ -187,7 +188,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView12"
+                        android:id="@+id/genderText"
                         android:layout_width="104dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="22dp"
@@ -196,7 +197,7 @@
                         android:textColor="#000000" />
 
                     <Button
-                        android:id="@+id/button1"
+                        android:id="@+id/genderButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/purple_500"
@@ -236,7 +237,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView21"
+                        android:id="@+id/usernameText"
                         android:layout_width="114dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30dp"
@@ -245,7 +246,7 @@
                         android:textColor="#000000" />
 
                     <Button
-                        android:id="@+id/button4"
+                        android:id="@+id/usernameButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/purple_500"
@@ -270,7 +271,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView17"
+                        android:id="@+id/passwordText"
                         android:layout_width="114dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="35dp"
@@ -279,7 +280,7 @@
                         android:textColor="#000000" />
 
                     <Button
-                        android:id="@+id/button3"
+                        android:id="@+id/passwordButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/purple_500"

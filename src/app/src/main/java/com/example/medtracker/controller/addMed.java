@@ -27,6 +27,7 @@ public class addMed extends AppCompatActivity {
         returnMain.setOnClickListener(view -> returnParent());
     }
     public void createMed(){
+        setResult(1);
         finish();
     }
 
