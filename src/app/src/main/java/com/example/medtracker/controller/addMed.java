@@ -1,7 +1,9 @@
 package com.example.medtracker.controller;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -101,27 +104,49 @@ public class addMed extends AppCompatActivity {
         returnMain.setOnClickListener(view -> returnParent());
     }
     public void createMed(){
-        setResult(1);
-
-        //write the user input into database
+        //parse user input
         medName = ((EditText) findViewById(R.id.medName)).getText().toString();
-        medDoses = Double.valueOf(((EditText) findViewById(R.id.medDoses)).getText().toString());
+        String dosesTemp = ((EditText) findViewById(R.id.medDoses)).getText().toString();
+        if(!dosesTemp.equals("")){
+            medDoses = Double.valueOf(dosesTemp);
+        }
 
         //parse notification input
         switch(notifySelect){
             case "5 minutes":
                 medNotify = 5;
+                break;
             case "10 minutes":
                 medNotify = 10;
+                break;
             case "15 minutes":
                 medNotify = 15;
+                break;
             case "30 minutes":
                 medNotify = 30;
+                break;
             case "60 minutes":
                 medNotify = 60;
+                break;
+            default:
+                medNotify = -1;
         }
 
-        finish();
+        //check whether user input is valid
+        if(medName.equals("")){
+            AlertDialog.Builder nameAlert = new AlertDialog.Builder(addMed.this);
+            nameAlert.setMessage("Please enter a valid medication name");
+            nameAlert.setTitle("Invalid Name!");
+            nameAlert.setCancelable(true);
+            nameAlert.setPositiveButton("OK", (dialog, which) -> {
+                dialog.cancel();
+            });
+            AlertDialog nameDialog = nameAlert.create();
+            nameDialog.show();
+        }else{
+            setResult(1);
+            finish();
+        }
     }
 
     private void updateDate(){
