@@ -13,10 +13,11 @@
     <string name="dosage_text2">pills/bottles</string>
     <string name="deadline_title">Eat Before</string>
     <string name="notification_text">Notification</string>
-    <string name="notification_input">2 hour 0 min</string>
+    <string name="notification_input">Enter Time</string>
     <string name="notification_text2">before medication</string>
     <string name="remarks_text">Remarks</string>
     <string name="create_med">Create Medication</string>
+    <string name="eat_before_text">Enter Date</string>
 
     <!-- setting -->
     <string name="info_toolbar">Setting</string>

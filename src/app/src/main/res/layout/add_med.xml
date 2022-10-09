@@ -117,6 +117,7 @@
                         android:ems="10"
                         android:hint="@string/name_input"
                         android:inputType="textPersonName"
+                        android:textAlignment="center"
                         android:textColor="#000000"
                         android:textColorHint="#8E8E8E" />
 
@@ -147,20 +148,21 @@
 
                     <EditText
                         android:id="@+id/editTextNumber"
-                        android:layout_width="48dp"
+                        android:layout_width="70dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="40dp"
+                        android:layout_marginLeft="48dp"
                         android:backgroundTint="@color/hint"
                         android:ems="10"
                         android:hint="@string/dosage_input"
                         android:inputType="number"
+                        android:textAlignment="center"
                         android:textColor="#000000"
                         android:textColorHint="@color/hint"
                         tools:ignore="TouchTargetSizeCheck" />
 
                     <TextView
                         android:id="@+id/textView6"
-                        android:layout_width="73dp"
+                        android:layout_width="99dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0"
                         android:gravity="center"
@@ -194,40 +196,19 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/r"
-                        android:layout_width="48dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="40dp"
-                        android:backgroundTint="@color/hint"
-                        android:ems="10"
-                        android:hint="@string/dosage_input1"
-                        android:inputType="number"
-                        android:textColor="#000000"
-                        android:textColorHint="@color/hint"
-                        tools:ignore="TouchTargetSizeCheck" />
-
-                    <TextView
-                        android:id="@+id/textView6asdf"
-                        android:layout_width="73dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0"
-                        android:gravity="center"
-                        android:text="@string/dosage_text2"
-                        android:textColor="#000000"
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/editTextTiasdfme"
-                        android:layout_width="112dp"
+                        android:id="@+id/editTextDate"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
                         android:layout_weight="0"
                         android:backgroundTint="@color/hint"
                         android:ems="10"
-                        android:hint="@string/dosage_input2"
-                        android:inputType="time"
-                        android:textColor="#000000"
-                        android:textColorHint="@color/hint"
-                        tools:ignore="TouchTargetSizeCheck" />
+                        android:hint="@string/eat_before_text"
+                        android:inputType="date"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hint" />
+
                 </LinearLayout>
 
                 <Space
@@ -253,13 +234,14 @@
 
                     <EditText
                         android:id="@+id/editTextTime2"
-                        android:layout_width="131dp"
+                        android:layout_width="157dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:backgroundTint="@color/hint"
                         android:ems="10"
                         android:hint="@string/notification_input"
                         android:inputType="time"
+                        android:textAlignment="center"
                         android:textColor="#000000"
                         android:textColorHint="@color/hint"
                         tools:ignore="TouchTargetSizeCheck" />
