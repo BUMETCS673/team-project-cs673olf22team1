@@ -5,9 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
-import com.example.medtracker.database.entities.Account;
 import com.example.medtracker.database.entities.Medication;
 
 import java.util.List;
@@ -23,9 +21,6 @@ public interface MedicationDao {
 
     @Query("SELECT * FROM Medication WHERE med_name LIKE :medName")
     List<Medication> searchMedsByName(String medName);
-
-    @Query("SELECT * FROM Medication WHERE patient_id = :patientId")
-    List<Medication> getPatientMeds(int patientId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addMeds(Medication... medications);
