@@ -6,33 +6,40 @@
  */
 package com.example.medtracker.components;
 
+import com.example.medtracker.components.frequencies.Frequency;
+
 import java.time.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Schedule {
 
-    private List<LocalDateTime> takeTimes;  ///< Array of dates and times to date a single medication
+    private LocalDateTime nextTakeTime = null;
+    private Frequency freq = null;
 
-    public Schedule() {
-        this.takeTimes = new ArrayList<>();
+    public Schedule(){};
+
+    public Schedule(LocalDateTime firstTime, Frequency freq) {
+        this.nextTakeTime = firstTime;
+        this.freq = freq;
     }
 
-    public void addTakeTime(LocalDateTime Time) {
-        takeTimes.add(Time);
+    public LocalDateTime getCurrentTakeTime() {
+        return this.nextTakeTime;
     }
 
-    public void deleteTakeTime(LocalDateTime Time) {
-        takeTimes.remove(Time);
+    public void deleteTakeTime() {this.nextTakeTime = null;}
+
+    public void updateTakeTime() {
+        LocalDateTime newTime = freq.updateTime(nextTakeTime);
+        this.nextTakeTime = newTime;
     }
 
-    public void updateTakeTime(LocalDateTime oldTime, LocalDateTime newTime) {
-        this.deleteTakeTime(oldTime);
-        this.addTakeTime(newTime);
-    }
-
-    public List<LocalDateTime> getTakeTimes()
+    public void setTakeTime(LocalDateTime customTime)
     {
-        return this.takeTimes;
+        this.nextTakeTime = customTime;
     }
+
+    public void setFreq(Frequency freq){
+        this.freq = freq;
+    }
+
 }
