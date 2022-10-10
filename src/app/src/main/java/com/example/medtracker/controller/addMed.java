@@ -37,6 +37,7 @@ public class addMed extends AppCompatActivity {
     String medName;
     Double medDoses;
     final Calendar medCal = Calendar.getInstance();
+    final Calendar compareCal = Calendar.getInstance();
     EditText endDate;
     EditText endTime;
     int medNotify;
@@ -103,6 +104,7 @@ public class addMed extends AppCompatActivity {
         returnMain = (ImageButton) findViewById(R.id.backButton);
         returnMain.setOnClickListener(view -> returnParent());
     }
+
     public void createMed(){
         //parse user input
         medName = ((EditText) findViewById(R.id.medName)).getText().toString();
@@ -133,6 +135,7 @@ public class addMed extends AppCompatActivity {
         }
 
         //check whether user input is valid
+        int compareResult = medCal.getTime().compareTo(compareCal.getTime());
         if(medName.equals("")){
             AlertDialog.Builder nameAlert = new AlertDialog.Builder(addMed.this);
             nameAlert.setMessage("Please enter a valid medication name");
@@ -143,10 +146,24 @@ public class addMed extends AppCompatActivity {
             });
             AlertDialog nameDialog = nameAlert.create();
             nameDialog.show();
+        }else if(compareResult < 0){
+            AlertDialog.Builder dateAlert = new AlertDialog.Builder(addMed.this);
+            dateAlert.setMessage("Please enter a date after now");
+            dateAlert.setTitle("Invalid Date!");
+            dateAlert.setCancelable(true);
+            dateAlert.setPositiveButton("OK", (dialog, which) -> {
+                dialog.cancel();
+            });
+            AlertDialog nameDialog = dateAlert.create();
+            nameDialog.show();
         }else{
+            if(compareResult == 0){
+                medCal.add(Calendar.HOUR_OF_DAY, 2);
+            }
             setResult(1);
             finish();
         }
+
     }
 
     private void updateDate(){
