@@ -18,6 +18,7 @@
     <string name="create_med">Create Medication</string>
     <string name="eat_before_date">Date</string>
     <string name="eat_before_time">Time</string>
+    <string name="repetition_text">Repeat</string>
 
     <!-- setting -->
     <string name="info_toolbar">Setting</string>

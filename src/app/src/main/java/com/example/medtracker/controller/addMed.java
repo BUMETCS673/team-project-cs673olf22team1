@@ -22,6 +22,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medtracker.R;
+import com.example.medtracker.components.frequencies.Daily;
+import com.example.medtracker.components.frequencies.Hourly;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,7 +35,9 @@ public class addMed extends AppCompatActivity {
     ImageButton returnMain;
     Button createMed;
     Spinner notifySpin;
+    Spinner repeatSpin;
     String notifySelect;
+    String repeatSelect;
     String medName;
     Double medDoses;
     final Calendar medCal = Calendar.getInstance();
@@ -96,6 +100,24 @@ public class addMed extends AppCompatActivity {
             }
         });
 
+        //add repeat spinner
+        repeatSpin = findViewById(R.id.repeatSpinner);
+        String[] items2 = new String[]{"Select Repeat", "every day", "every hour"};
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items2);
+        repeatSpin.setAdapter(adapter2);
+        repeatSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) view).setTextColor(Color.BLACK);
+                repeatSelect = repeatSpin.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         //press create medication button
         createMed = (Button) findViewById(R.id.createMed);
         createMed.setOnClickListener(view -> createMed());
@@ -111,6 +133,16 @@ public class addMed extends AppCompatActivity {
         String dosesTemp = ((EditText) findViewById(R.id.medDoses)).getText().toString();
         if(!dosesTemp.equals("")){
             medDoses = Double.valueOf(dosesTemp);
+        }
+
+        //parse repetition info
+        switch(repeatSelect){
+            case "every day":
+                Daily day = new Daily();
+                break;
+            case "every hour":
+                Hourly hour = new Hourly();
+                break;
         }
 
         //parse notification input
