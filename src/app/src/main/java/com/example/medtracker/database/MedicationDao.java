@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.example.medtracker.components.Medicine;
 import com.example.medtracker.database.entities.Medication;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface MedicationDao {
     List<Medication> searchMedsByName(String medName);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addMeds(Medication... medications);
+    void addMeds(Medication medications);
 
     @Delete
     void deleteMed(Medication medication);

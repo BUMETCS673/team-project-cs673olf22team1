@@ -22,8 +22,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medtracker.R;
+import com.example.medtracker.components.Medicine;
+import com.example.medtracker.components.Schedule;
+import com.example.medtracker.components.frequencies.Frequency;
+import com.example.medtracker.database.MedTrackerDatabase;
+import com.example.medtracker.database.MedicationDao;
+import com.example.medtracker.database.entities.Medication;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -35,11 +44,13 @@ public class addMed extends AppCompatActivity {
     Spinner notifySpin;
     String notifySelect;
     String medName;
-    Double medDoses;
+    Float medDoses;
     final Calendar medCal = Calendar.getInstance();
     EditText endDate;
     EditText endTime;
     int medNotify;
+
+    SimpleDateFormat dateFormat;
 
 
     @Override
@@ -97,18 +108,24 @@ public class addMed extends AppCompatActivity {
 
         //press create medication button
         createMed = (Button) findViewById(R.id.createMed);
-        createMed.setOnClickListener(view -> createMed());
+        createMed.setOnClickListener(view -> {
+            try {
+                createMed();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         //return home page
         returnMain = (ImageButton) findViewById(R.id.backButton);
         returnMain.setOnClickListener(view -> returnParent());
     }
-    public void createMed(){
+    public void createMed() throws ParseException {
         //parse user input
         medName = ((EditText) findViewById(R.id.medName)).getText().toString();
         String dosesTemp = ((EditText) findViewById(R.id.medDoses)).getText().toString();
         if(!dosesTemp.equals("")){
-            medDoses = Double.valueOf(dosesTemp);
+            medDoses = Float.valueOf(dosesTemp);
         }
 
         //parse notification input
@@ -144,6 +161,23 @@ public class addMed extends AppCompatActivity {
             AlertDialog nameDialog = nameAlert.create();
             nameDialog.show();
         }else{
+
+            // Create medication object
+            Frequency frequency = new Frequency() {
+                @Override
+                public LocalDateTime updateTime(LocalDateTime oldTime) {
+                    // Do something here?
+                    return null;
+                }
+            };
+
+            // TODO: Generate MedId
+            Medication medication = new Medication(medDoses, medCal.getTime(), medName, frequency, 0);
+
+            // Add medicine to database
+            //MedicationDao medicationDao = new MedicationDao();
+            //medicationDao.addMeds(medicine);
+
             setResult(1);
             finish();
         }
@@ -151,7 +185,7 @@ public class addMed extends AppCompatActivity {
 
     private void updateDate(){
         String dateOut = "MM/dd/yyyy";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(dateOut, Locale.US);
+        dateFormat = new SimpleDateFormat(dateOut, Locale.US);
         endDate.setText(dateFormat.format(medCal.getTime()));
     }
 

@@ -10,13 +10,15 @@ public class Medicine {
 
     private float dosage;           ///< The amount of this medication to take
     private Schedule schedule;      ///< The schedule associated with taking this medication
+    private String name;            ///< Name of the medicine
 
     /**
      * @brief Constructor for the medicine class
      */
-    public Medicine(float dosage, Schedule schedule) {
+    public Medicine(float dosage, Schedule schedule, String name) {
         this.dosage = dosage;
         this.schedule = schedule;
+        this.name = name;
     }
 
     /**
@@ -25,6 +27,7 @@ public class Medicine {
     public Medicine() {
         this.dosage = 0;
         this.schedule = new Schedule();
+        this.name = "";
     }
 
     /**
