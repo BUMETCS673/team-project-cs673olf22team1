@@ -6,11 +6,22 @@ import androidx.room.PrimaryKey;
 
 import com.example.medtracker.components.frequencies.Frequency;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 public class Medication {
 
+
+        public Medication(float dosage, Date reminder, String medName, Frequency frequency, int medId) {
+
+                this.dosage = dosage;
+                this.reminder = reminder;
+                this.medName = medName;
+                this.frequency = frequency;
+                this.medId = medId;
+
+        }
         @PrimaryKey(autoGenerate = true)
         public int medId;
 
@@ -25,4 +36,6 @@ public class Medication {
 
         @ColumnInfo(name = "frequency")
         public Frequency frequency;
+
+
 }

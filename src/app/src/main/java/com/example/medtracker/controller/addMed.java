@@ -22,10 +22,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medtracker.R;
-import com.example.medtracker.components.frequencies.Daily;
-import com.example.medtracker.components.frequencies.Hourly;
+import com.example.medtracker.components.Medicine;
+import com.example.medtracker.components.Schedule;
+import com.example.medtracker.components.frequencies.Frequency;
+import com.example.medtracker.database.MedTrackerDatabase;
+import com.example.medtracker.database.MedicationDao;
+import com.example.medtracker.database.entities.Medication;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -35,16 +42,15 @@ public class addMed extends AppCompatActivity {
     ImageButton returnMain;
     Button createMed;
     Spinner notifySpin;
-    Spinner repeatSpin;
     String notifySelect;
-    String repeatSelect;
     String medName;
-    Double medDoses;
+    Float medDoses;
     final Calendar medCal = Calendar.getInstance();
-    final Calendar compareCal = Calendar.getInstance();
     EditText endDate;
     EditText endTime;
     int medNotify;
+
+    SimpleDateFormat dateFormat;
 
 
     @Override
@@ -100,49 +106,26 @@ public class addMed extends AppCompatActivity {
             }
         });
 
-        //add repeat spinner
-        repeatSpin = findViewById(R.id.repeatSpinner);
-        String[] items2 = new String[]{"Select Repeat", "every day", "every hour"};
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items2);
-        repeatSpin.setAdapter(adapter2);
-        repeatSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) view).setTextColor(Color.BLACK);
-                repeatSelect = repeatSpin.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         //press create medication button
         createMed = (Button) findViewById(R.id.createMed);
-        createMed.setOnClickListener(view -> createMed());
+        createMed.setOnClickListener(view -> {
+            try {
+                createMed();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         //return home page
         returnMain = (ImageButton) findViewById(R.id.backButton);
         returnMain.setOnClickListener(view -> returnParent());
     }
-
-    public void createMed(){
+    public void createMed() throws ParseException {
         //parse user input
         medName = ((EditText) findViewById(R.id.medName)).getText().toString();
         String dosesTemp = ((EditText) findViewById(R.id.medDoses)).getText().toString();
         if(!dosesTemp.equals("")){
-            medDoses = Double.valueOf(dosesTemp);
-        }
-
-        //parse repetition info
-        switch(repeatSelect){
-            case "every day":
-                Daily day = new Daily();
-                break;
-            case "every hour":
-                Hourly hour = new Hourly();
-                break;
+            medDoses = Float.valueOf(dosesTemp);
         }
 
         //parse notification input
@@ -167,7 +150,6 @@ public class addMed extends AppCompatActivity {
         }
 
         //check whether user input is valid
-        int compareResult = medCal.getTime().compareTo(compareCal.getTime());
         if(medName.equals("")){
             AlertDialog.Builder nameAlert = new AlertDialog.Builder(addMed.this);
             nameAlert.setMessage("Please enter a valid medication name");
@@ -178,29 +160,32 @@ public class addMed extends AppCompatActivity {
             });
             AlertDialog nameDialog = nameAlert.create();
             nameDialog.show();
-        }else if(compareResult < 0){
-            AlertDialog.Builder dateAlert = new AlertDialog.Builder(addMed.this);
-            dateAlert.setMessage("Please enter a date after now");
-            dateAlert.setTitle("Invalid Date!");
-            dateAlert.setCancelable(true);
-            dateAlert.setPositiveButton("OK", (dialog, which) -> {
-                dialog.cancel();
-            });
-            AlertDialog nameDialog = dateAlert.create();
-            nameDialog.show();
         }else{
-            if(compareResult == 0){
-                medCal.add(Calendar.HOUR_OF_DAY, 2);
-            }
+
+            // Create medication object
+            Frequency frequency = new Frequency() {
+                @Override
+                public LocalDateTime updateTime(LocalDateTime oldTime) {
+                    // Do something here?
+                    return null;
+                }
+            };
+
+            // TODO: Generate MedId
+            Medication medication = new Medication(medDoses, medCal.getTime(), medName, frequency, 0);
+
+            // Add medicine to database
+            //MedicationDao medicationDao = new MedicationDao();
+            //medicationDao.addMeds(medicine);
+
             setResult(1);
             finish();
         }
-
     }
 
     private void updateDate(){
         String dateOut = "MM/dd/yyyy";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(dateOut, Locale.US);
+        dateFormat = new SimpleDateFormat(dateOut, Locale.US);
         endDate.setText(dateFormat.format(medCal.getTime()));
     }
 
