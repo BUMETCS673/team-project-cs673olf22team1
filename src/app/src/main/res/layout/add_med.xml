@@ -197,7 +197,7 @@
 
                     <EditText
                         android:id="@+id/medDate"
-                        android:layout_width="141dp"
+                        android:layout_width="137dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="0"
@@ -212,9 +212,9 @@
 
                     <EditText
                         android:id="@+id/medTime"
-                        android:layout_width="82dp"
+                        android:layout_width="91dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="0"
                         android:backgroundTint="@color/hint"
                         android:ems="10"

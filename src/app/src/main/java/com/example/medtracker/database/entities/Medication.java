@@ -13,13 +13,12 @@ import java.util.Date;
 public class Medication {
 
 
-        public Medication(float dosage, Date reminder, String medName, Frequency frequency, int medId) {
+        public Medication(float dosage, Date reminder, String medName, Frequency frequency) {
 
                 this.dosage = dosage;
                 this.reminder = reminder;
                 this.medName = medName;
                 this.frequency = frequency;
-                this.medId = medId;
 
         }
         @PrimaryKey(autoGenerate = true)
