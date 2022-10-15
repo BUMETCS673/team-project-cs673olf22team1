@@ -21,13 +21,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.medtracker.MedTracker;
 import com.example.medtracker.R;
 import com.example.medtracker.database.MedTrackerDatabase;
+import com.example.medtracker.database.MedTrackerDatabaseSingleton;
 import com.example.medtracker.database.MedicationDao;
 import com.example.medtracker.database.entities.Medication;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -44,10 +49,6 @@ public class main extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
 
-        //delete default medication card view
-        defaultDelete = (Button) findViewById(R.id.del);
-        defaultDelete.setOnClickListener(view -> openDelete(defaultDelete));
-
         //press add medication button
         addMed = (Button) findViewById(R.id.addMedButton);
         addMed.setOnClickListener(view -> openMed());
@@ -58,11 +59,15 @@ public class main extends AppCompatActivity{
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == 1) {
                             //generate the medication
+
                             LinearLayout ll = (LinearLayout) findViewById(R.id.medLayout);
                             View card = getLayoutInflater().inflate(R.layout.med_card, null);
                             Button deleteMed = (Button) card.findViewById(R.id.deleteButton);
                             deleteMed.setOnClickListener(view -> openDelete(deleteMed));
                             ll.addView(card);
+
+                            TextView medInfo = (TextView)card.findViewById(R.id.medInfo);
+                            medInfo.setText(result.getData().getStringExtra("name"));
 
                             Toast.makeText(getApplicationContext(), "Add Medicine Successfully!", Toast.LENGTH_SHORT).show();
                         }
@@ -73,6 +78,22 @@ public class main extends AppCompatActivity{
         setting_button = (ImageButton) findViewById(R.id.settingImage);
         setting_button.setOnClickListener(view -> openSetting());
 
+        // Load medications from database or add this intent to a stack
+        MedTrackerDatabase db = MedTrackerDatabaseSingleton.getInstance(MedTracker.getAppContext());
+        MedicationDao medDao = db.medicationDao();
+
+        List<Medication> medList = medDao.getAllMeds();
+        for (Medication medication:medList) {
+            LinearLayout ll = (LinearLayout) findViewById(R.id.medLayout);
+            View card = getLayoutInflater().inflate(R.layout.med_card, null);
+            Button deleteMed = (Button) card.findViewById(R.id.deleteButton);
+            deleteMed.setOnClickListener(view -> openDelete(deleteMed));
+            ll.addView(card);
+
+            TextView medInfo = (TextView)card.findViewById(R.id.medInfo);
+            medInfo.setText(medication.medName);
+
+        }
     }
 
     public void openMed(){
@@ -94,6 +115,19 @@ public class main extends AppCompatActivity{
         deleteAlert.setCancelable(true);
         deleteAlert.setPositiveButton("Yes", (dialog, which) -> {
             ((ViewGroup) delButton.getParent().getParent()).removeAllViews();
+
+            // Remove record from database
+            MedTrackerDatabase db = MedTrackerDatabaseSingleton.getInstance(MedTracker.getAppContext());
+            MedicationDao medDao = db.medicationDao();
+
+            CardView cardView = (CardView) delButton.getParent();
+            TextView textView = (TextView)cardView.findViewById(R.id.medInfo);
+            Log.d("test", textView.getText().toString());
+
+            List<Medication> medicationList = medDao.searchMedsByName(textView.getText().toString());
+            for (Medication medication : medicationList) {
+                medDao.deleteMed(medication);
+            }
             dialog.cancel();
         });
         deleteAlert.setNegativeButton("No", (dialog, which) -> {
