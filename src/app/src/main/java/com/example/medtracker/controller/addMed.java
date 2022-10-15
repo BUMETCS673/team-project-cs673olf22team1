@@ -3,7 +3,9 @@ package com.example.medtracker.controller;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.ProvidedTypeConverter;
 import androidx.room.Room;
 
+import com.example.medtracker.MedTracker;
 import com.example.medtracker.R;
 import com.example.medtracker.components.Medicine;
 import com.example.medtracker.components.Schedule;
@@ -30,6 +33,7 @@ import com.example.medtracker.components.frequencies.Daily;
 import com.example.medtracker.components.frequencies.Frequency;
 import com.example.medtracker.components.frequencies.Hourly;
 import com.example.medtracker.database.MedTrackerDatabase;
+import com.example.medtracker.database.MedTrackerDatabaseSingleton;
 import com.example.medtracker.database.MedicationDao;
 import com.example.medtracker.database.entities.Medication;
 
@@ -229,13 +233,15 @@ public class addMed extends AppCompatActivity {
             Medication medication = new Medication(medDoses, medCal.getTime(), medName, freq);
 
             //add medication object to database
+            MedTrackerDatabase db = MedTrackerDatabaseSingleton.getInstance(MedTracker.getAppContext());
+            MedicationDao medDao = db.medicationDao();
+            medDao.addMeds(medication);
 
-//            MedTrackerDatabase db = Room.databaseBuilder(getApplicationContext(),
-//                    MedTrackerDatabase.class, "Patient_Med").build();
-//            MedicationDao medDao = db.medicationDao();
-//            medDao.addMeds(medication);
-
-            setResult(1);
+            // Use this intent to pass data back to the main activity so it knows which
+            // medication was added
+            Intent intent = new Intent();
+            intent.putExtra("name", medication.medName);
+            setResult(1, intent);
             finish();
         }
     }

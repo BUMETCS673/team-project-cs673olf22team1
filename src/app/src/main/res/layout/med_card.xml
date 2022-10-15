@@ -32,6 +32,7 @@
             android:layout_width="216dp"
             android:layout_height="46dp"
             android:layout_marginLeft="80dp"
+            android:editable="true"
             android:ems="10"
             android:gravity="center"
             android:text="Medication Info"
