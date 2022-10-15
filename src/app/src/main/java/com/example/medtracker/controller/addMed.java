@@ -235,7 +235,7 @@ public class addMed extends AppCompatActivity {
             //add medication object to database
             MedTrackerDatabase db = MedTrackerDatabaseSingleton.getInstance(MedTracker.getAppContext());
             MedicationDao medDao = db.medicationDao();
-            medDao.addMeds(medication);
+            medDao.addMed(medication);
 
             // Use this intent to pass data back to the main activity so it knows which
             // medication was added
