@@ -11,6 +11,7 @@ import androidx.room.Room;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,6 +47,7 @@ public class main extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(ContentValues.TAG, "onCreate() called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
 
@@ -97,11 +99,13 @@ public class main extends AppCompatActivity{
     }
 
     public void openMed(){
+        Log.d(ContentValues.TAG, "openMed() called");
         Intent intent = new Intent(this,addMed.class);
         addMedLauncher.launch(intent);
     }
 
     public void openSetting(){
+        Log.d(ContentValues.TAG, "openSetting() called");
         Intent intent = new Intent(this,setting.class);
         startActivity(intent);
         finish();
@@ -109,6 +113,7 @@ public class main extends AppCompatActivity{
     }
 
     public void openDelete(Button delButton){
+        Log.d(ContentValues.TAG, "openDelete() called");
         AlertDialog.Builder deleteAlert = new AlertDialog.Builder(main.this);
         deleteAlert.setMessage("Are you sure you want to delete this medication?");
         deleteAlert.setTitle("Delete Medication!");
