@@ -41,5 +41,4 @@ public class Medication {
         @TypeConverters(FrequencyConverter.class)
         public Frequency frequency;
 
-
 }

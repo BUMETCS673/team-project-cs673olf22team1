@@ -7,14 +7,18 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,15 +29,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.medtracker.MedTracker;
 import com.example.medtracker.R;
-import com.example.medtracker.database.MedTrackerDatabase;
-import com.example.medtracker.database.MedicationDao;
 import com.example.medtracker.database.entities.Medication;
 import com.example.medtracker.viewmodel.CurMedViewModel;
 import com.example.medtracker.viewmodel.MedListViewModel;
 
-import java.util.ArrayList;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -46,11 +48,19 @@ public class main extends AppCompatActivity{
     ActivityResultLauncher<Intent> addMedLauncher;
     ActivityResultLauncher<Intent> editMedLauncher;
 
+    private NotificationChannel notificationChannel;
+    private NotificationManager notificationManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(ContentValues.TAG, "onCreate() called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+
+        // Notifications
+        notificationChannel = new NotificationChannel("MedTracker", "MedTracker", NotificationManager.IMPORTANCE_HIGH);
+        notificationManager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.createNotificationChannel(notificationChannel);
 
         listViewModel = new ViewModelProvider(this).get(MedListViewModel.class);
         viewModel = new ViewModelProvider(this).get(CurMedViewModel.class);
@@ -96,6 +106,8 @@ public class main extends AppCompatActivity{
 
         // Load medications from database or add this intent to a stack
         loadMeds();
+
+        runHandler();
     }
 
     public void loadMeds(){
@@ -160,5 +172,43 @@ public class main extends AppCompatActivity{
         });
         AlertDialog deleteDialog = deleteAlert.create();
         deleteDialog.show();
+    }
+
+    Handler handler = new Handler(Looper.getMainLooper());
+    public void runHandler() {
+        handler.post(runnableCode);
+    }
+
+    private Runnable runnableCode = new Runnable() {
+        @Override
+        public void run() {
+            // Do something here on the main thread
+            checkForNotifications();
+            // Repeat this the same runnable code block again another 2 seconds
+            // 'this' is referencing the Runnable object
+            handler.postDelayed(this, 1000);
+        }
+    };
+    public void checkForNotifications() {
+        //Look up medications
+        List<Medication> medList = listViewModel.getAllMeds();
+        Calendar now = Calendar.getInstance();
+        for (Medication medication:medList) {
+            medication.reminder.toInstant().toEpochMilli();
+
+            // Allow a 1 second window for the notification to be sent
+            if (Math.abs(medication.reminder.toInstant().toEpochMilli() - now.toInstant().toEpochMilli()) < 1000) {
+                Notification.Builder builder = new Notification.Builder(getApplicationContext(), notificationChannel.getId());
+                builder.setContentTitle(medication.medName);
+                builder.setContentText("Time to take your medication!");
+                builder.setSmallIcon(R.drawable.photo);
+                Notification notify= builder.build();
+
+                notify.flags |= Notification.FLAG_AUTO_CANCEL;
+                notificationManager.notify(0, notify);
+
+                // Update reminder time based on frequency
+            }
+        }
     }
 }
