@@ -22,7 +22,7 @@ public class MedTrackerDatabaseTest extends TestCase {
         // context from the running application
         Context context = ApplicationProvider.getApplicationContext();
         // initialize the db and dao variable
-        db = MedTrackerDatabaseSingleton.getInstance(context);
+        db = MedTrackerDatabase.getInstance(context);
         medicationDao = db.medicationDao();
     }
 

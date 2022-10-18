@@ -3,46 +3,36 @@ package com.example.medtracker.controller;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.ProvidedTypeConverter;
-import androidx.room.Room;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.medtracker.MedTracker;
 import com.example.medtracker.R;
-import com.example.medtracker.components.Medicine;
-import com.example.medtracker.components.Schedule;
 import com.example.medtracker.components.frequencies.Daily;
 import com.example.medtracker.components.frequencies.Frequency;
 import com.example.medtracker.components.frequencies.Hourly;
 import com.example.medtracker.database.MedTrackerDatabase;
-import com.example.medtracker.database.MedTrackerDatabaseSingleton;
 import com.example.medtracker.database.MedicationDao;
 import com.example.medtracker.database.entities.Medication;
+import com.example.medtracker.viewmodel.CurMedViewModel;
+import com.example.medtracker.viewmodel.MedListViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class addMed extends AppCompatActivity {
@@ -63,11 +53,17 @@ public class addMed extends AppCompatActivity {
     Frequency freq;
     SimpleDateFormat dateFormat;
 
+    private MedListViewModel listViewModel;
+    private CurMedViewModel viewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_med);
+
+        listViewModel = new ViewModelProvider(this).get(MedListViewModel.class);
+        viewModel = new ViewModelProvider(this).get(CurMedViewModel.class);
 
         endDate = (EditText) findViewById(R.id.medDate);
         endTime = (EditText) findViewById(R.id.medTime);
@@ -233,9 +229,8 @@ public class addMed extends AppCompatActivity {
             Medication medication = new Medication(medDoses, medCal.getTime(), medName, freq);
 
             //add medication object to database
-            MedTrackerDatabase db = MedTrackerDatabaseSingleton.getInstance(MedTracker.getAppContext());
-            MedicationDao medDao = db.medicationDao();
-            medDao.addMed(medication);
+
+            listViewModel.addMed(medication);
 
             // Use this intent to pass data back to the main activity so it knows which
             // medication was added

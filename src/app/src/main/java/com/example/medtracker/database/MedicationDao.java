@@ -17,13 +17,13 @@ import java.util.List;
 @Dao
 public interface MedicationDao {
     @Query("SELECT * FROM Medication")
-    LiveData<List<Medication>> getAllMeds();
+    List<Medication> getAllMeds();
 
     @Query("SELECT * FROM Medication WHERE medId = :medId")
-    LiveData<Medication> getMedicationById(int medId);
+    Medication getMedicationById(int medId);
 
     @Query("SELECT * FROM Medication WHERE med_name LIKE :medName")
-    LiveData<List<Medication>> searchMedsByName(String medName);
+    List<Medication> searchMedsByName(String medName);
 
     @Delete
     void deleteMed(Medication medication);
