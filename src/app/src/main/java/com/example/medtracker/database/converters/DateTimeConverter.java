@@ -1,5 +1,6 @@
 package com.example.medtracker.database.converters;
 
+import androidx.room.ProvidedTypeConverter;
 import androidx.room.TypeConverter;
 
 import java.util.Date;

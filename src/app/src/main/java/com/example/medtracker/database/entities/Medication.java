@@ -3,8 +3,11 @@ package com.example.medtracker.database.entities;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import com.example.medtracker.components.frequencies.Frequency;
+import com.example.medtracker.database.converters.DateTimeConverter;
+import com.example.medtracker.database.converters.FrequencyConverter;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -31,9 +34,11 @@ public class Medication {
         public Float dosage;
 
         @ColumnInfo(name = "reminder")
+        @TypeConverters(DateTimeConverter.class)
         public Date reminder;
 
         @ColumnInfo(name = "frequency")
+        @TypeConverters(FrequencyConverter.class)
         public Frequency frequency;
 
 

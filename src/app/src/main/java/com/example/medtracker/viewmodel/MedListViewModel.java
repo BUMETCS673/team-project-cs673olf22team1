@@ -3,42 +3,59 @@ package com.example.medtracker.viewmodel;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.app.Application;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.medtracker.MedTracker;
 import com.example.medtracker.database.MedTrackerDatabase;
-import com.example.medtracker.database.MedTrackerDatabaseSingleton;
 import com.example.medtracker.database.MedicationDao;
 import com.example.medtracker.database.entities.Medication;
 
 import java.util.List;
-import java.util.concurrent.Executors;
 
 public class MedListViewModel extends ViewModel {
-    MedTrackerDatabase db = MedTrackerDatabaseSingleton.getInstance(getApplicationContext());
+    MedTrackerDatabase db = MedTrackerDatabase.getInstance(MedTracker.getAppContext());
     MedicationDao dao = db.medicationDao();
 
-    private LiveData<List<Medication>> medList = dao.getAllMeds();
+    private List<Medication> medList;
 
-    LiveData<List<Medication>>  getAllHabits(){
-        return dao.getAllMeds();
+    public MedListViewModel() {
+        refreshMeds();
+        Log.d("ViewModel","MedListViewModel created" );
     }
 
-    void addMed(Medication medication) {
+    public void refreshMeds(){
+        medList = dao.getAllMeds();
+    }
+
+    public void addMed(Medication medication) {
         dao.addMed(medication);
+        refreshMeds();
     }
 
-    LiveData<Medication> searchMedId(int medId){
+    public void deleteMed(Medication medication){
+        dao.deleteMed(medication);
+        refreshMeds();
+    }
+
+    public List<Medication> getAllMeds(){
+        return medList;
+    }
+
+    public Medication searchMedId(int medId){
         return dao.getMedicationById(medId);
     }
 
-    LiveData<List<Medication>> searchMedName(String name){
+    public List<Medication> searchMedName(String name){
         return dao.searchMedsByName(name);
     }
 
 
-    LiveData<Integer> getMedCount(){
+    public LiveData<Integer> getMedCount(){
         return dao.count();
     }
 

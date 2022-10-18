@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/divth/Documents/BU/Fall22/CS673 O1/GroupProject/team-project-cs673olf22team1/src/app/src/main/res/layout/activity_main.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/divth/Documents/BU/Fall22/CS673 O1/GroupProject/team-project-cs673olf22team1/src/app/src/main/res/layout/add_med.xml" value="0.10552536231884058" />
+        <entry key="..\:/Users/divth/Documents/BU/Fall22/CS673 O1/GroupProject/team-project-cs673olf22team1/src/app/src/main/res/layout/alert_dialog.xml" value="0.10840932117527863" />
+        <entry key="..\:/Users/divth/Documents/BU/Fall22/CS673 O1/GroupProject/team-project-cs673olf22team1/src/app/src/main/res/layout/home.xml" value="0.1" />
+        <entry key="..\:/Users/divth/Documents/BU/Fall22/CS673 O1/GroupProject/team-project-cs673olf22team1/src/app/src/main/res/layout/med_card.xml" value="0.22291666666666668" />
       </map>
     </option>
   </component>

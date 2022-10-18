@@ -7,16 +7,15 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.room.Room;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,17 +28,19 @@ import android.widget.Toast;
 import com.example.medtracker.MedTracker;
 import com.example.medtracker.R;
 import com.example.medtracker.database.MedTrackerDatabase;
-import com.example.medtracker.database.MedTrackerDatabaseSingleton;
 import com.example.medtracker.database.MedicationDao;
 import com.example.medtracker.database.entities.Medication;
+import com.example.medtracker.viewmodel.CurMedViewModel;
+import com.example.medtracker.viewmodel.MedListViewModel;
 
-import org.w3c.dom.Text;
-
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class main extends AppCompatActivity{
 
+    private MedListViewModel listViewModel;
+    private CurMedViewModel viewModel;
     Button addMed;
     ImageButton setting_button;
     ActivityResultLauncher<Intent> addMedLauncher;
@@ -50,6 +51,11 @@ public class main extends AppCompatActivity{
         Log.d(ContentValues.TAG, "onCreate() called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+
+        listViewModel = new ViewModelProvider(this).get(MedListViewModel.class);
+        viewModel = new ViewModelProvider(this).get(CurMedViewModel.class);
+
+        Log.d("Main", "Viewmodels instantiated.");
 
         //press add medication button
         addMed = (Button) findViewById(R.id.addMedButton);
@@ -81,10 +87,12 @@ public class main extends AppCompatActivity{
         setting_button.setOnClickListener(view -> openSetting());
 
         // Load medications from database or add this intent to a stack
-        MedTrackerDatabase db = MedTrackerDatabaseSingleton.getInstance(MedTracker.getAppContext());
-        MedicationDao medDao = db.medicationDao();
+        loadMeds();
+    }
 
-        List<Medication> medList = medDao.getAllMeds();
+    public void loadMeds(){
+        List<Medication> medList = listViewModel.getAllMeds();
+        Log.d("Main", "MedList Setup.");
         for (Medication medication:medList) {
             LinearLayout ll = (LinearLayout) findViewById(R.id.medLayout);
             View card = getLayoutInflater().inflate(R.layout.med_card, null);
@@ -122,16 +130,14 @@ public class main extends AppCompatActivity{
             ((ViewGroup) delButton.getParent().getParent()).removeAllViews();
 
             // Remove record from database
-            MedTrackerDatabase db = MedTrackerDatabaseSingleton.getInstance(MedTracker.getAppContext());
-            MedicationDao medDao = db.medicationDao();
 
             CardView cardView = (CardView) delButton.getParent();
             TextView textView = (TextView)cardView.findViewById(R.id.medInfo);
             Log.d("test", textView.getText().toString());
 
-            List<Medication> medicationList = medDao.searchMedsByName(textView.getText().toString());
+            List<Medication> medicationList = listViewModel.searchMedName(textView.getText().toString());
             for (Medication medication : medicationList) {
-                medDao.deleteMed(medication);
+                listViewModel.deleteMed(medication);
             }
             dialog.cancel();
         });
