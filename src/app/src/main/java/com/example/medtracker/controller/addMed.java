@@ -6,12 +6,14 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -55,6 +57,8 @@ public class addMed extends AppCompatActivity {
 
     private MedListViewModel listViewModel;
     private CurMedViewModel viewModel;
+    Medication curMed;
+    String intentExtra;
 
 
     @Override
@@ -144,6 +148,19 @@ public class addMed extends AppCompatActivity {
         //return home page
         returnMain = (ImageButton) findViewById(R.id.backButton);
         returnMain.setOnClickListener(view -> returnParent());
+
+        //display med info if user click edit in the main page
+        intentExtra = getIntent().getExtras().getString("medName");
+        if (!intentExtra.equals("")){
+            curMed = listViewModel.searchMedName(intentExtra).get(0);
+            ((EditText) findViewById(R.id.medName)).setText(curMed.medName);
+            if (curMed.dosage > 0){
+                ((EditText) findViewById(R.id.medDoses)).setText(String.valueOf(curMed.dosage));
+            }
+            medCal.setTime(curMed.reminder);
+            updateDate();
+            updateTime();
+        }
     }
 
 
@@ -229,14 +246,20 @@ public class addMed extends AppCompatActivity {
             Medication medication = new Medication(medDoses, medCal.getTime(), medName, freq);
 
             //add medication object to database
-
+            if(curMed!=null) {
+                listViewModel.deleteMed(curMed);
+            }
             listViewModel.addMed(medication);
 
             // Use this intent to pass data back to the main activity so it knows which
             // medication was added
             Intent intent = new Intent();
             intent.putExtra("name", medication.medName);
-            setResult(1, intent);
+            if (intentExtra.equals("")) {
+                setResult(1, intent);
+            }else{
+                setResult(2, intent);
+            }
             finish();
         }
     }

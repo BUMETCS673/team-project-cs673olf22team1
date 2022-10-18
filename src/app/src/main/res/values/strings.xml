@@ -3,6 +3,7 @@
     <string name="app_name">MedTracker</string>
     <string name="add_med">Add Medication</string>
     <string name="delete_button">Delete</string>
+    <string name="edit_button">Edit</string>
 
     <!-- add_med -->
     <string name="add_title">Add Medication</string>
