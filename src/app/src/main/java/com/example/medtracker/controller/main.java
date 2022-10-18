@@ -46,7 +46,7 @@ public class main extends AppCompatActivity{
     Button addMed;
     ImageButton setting_button;
     ActivityResultLauncher<Intent> addMedLauncher;
-    Button defaultDelete;
+    ActivityResultLauncher<Intent> editMedLauncher;
 
     private NotificationChannel notificationChannel;
     private NotificationManager notificationManager;
@@ -69,7 +69,7 @@ public class main extends AppCompatActivity{
 
         //press add medication button
         addMed = (Button) findViewById(R.id.addMedButton);
-        addMed.setOnClickListener(view -> openMed());
+        addMed.setOnClickListener(view -> openMed(""));
         addMedLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -77,17 +77,25 @@ public class main extends AppCompatActivity{
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == 1) {
                             //generate the medication
-
                             LinearLayout ll = (LinearLayout) findViewById(R.id.medLayout);
                             View card = getLayoutInflater().inflate(R.layout.med_card, null);
                             Button deleteMed = (Button) card.findViewById(R.id.deleteButton);
                             deleteMed.setOnClickListener(view -> openDelete(deleteMed));
+                            TextView medInfo = (TextView)card.findViewById(R.id.medInfo);
+                            assert result.getData() != null;
+                            String medName = result.getData().getStringExtra("name");
+                            medInfo.setText(medName);
+                            Button editMed = (Button) card.findViewById(R.id.editButton);
+                            editMed.setOnClickListener(view -> openMed(medName));
                             ll.addView(card);
 
-                            TextView medInfo = (TextView)card.findViewById(R.id.medInfo);
-                            medInfo.setText(result.getData().getStringExtra("name"));
-
                             Toast.makeText(getApplicationContext(), "Add Medicine Successfully!", Toast.LENGTH_SHORT).show();
+                        }else if (result.getResultCode() == 2) {
+                            LinearLayout ll = (LinearLayout) findViewById(R.id.medLayout);
+                            ll.removeAllViews();
+                            loadMeds();
+
+                            Toast.makeText(getApplicationContext(), "Edit Medicine Successfully!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -103,6 +111,7 @@ public class main extends AppCompatActivity{
     }
 
     public void loadMeds(){
+        listViewModel.refreshMeds();
         List<Medication> medList = listViewModel.getAllMeds();
         Log.d("Main", "MedList Setup.");
         for (Medication medication:medList) {
@@ -114,14 +123,20 @@ public class main extends AppCompatActivity{
 
             TextView medInfo = (TextView)card.findViewById(R.id.medInfo);
             medInfo.setText(medication.medName);
+
+            Button editMed = (Button) card.findViewById(R.id.editButton);
+            editMed.setOnClickListener(view -> openMed(medication.medName));
+
         }
     }
 
-    public void openMed(){
+    public void openMed(String medName){
         Log.d(ContentValues.TAG, "openMed() called");
         Intent intent = new Intent(this,addMed.class);
+        intent.putExtra("medName", medName);
         addMedLauncher.launch(intent);
     }
+
 
     public void openSetting(){
         Log.d(ContentValues.TAG, "openSetting() called");
